@@ -1,15 +1,7 @@
 <?php
-/**
- * @author    Marek Zabrowarny <marek.zabrowarny@creativestyle.pl>
- * @copyright 2017 creativestyle
- */
-
 
 namespace MageSuite\CategoryHero\Test\Integration;
 
-use Magento\Framework\Component\ComponentRegistrar;
-use Magento\Framework\Module\ModuleList;
-use Magento\TestFramework\ObjectManager;
 
 class ExtensionSetupTest extends \PHPUnit\Framework\TestCase
 {
@@ -19,29 +11,29 @@ class ExtensionSetupTest extends \PHPUnit\Framework\TestCase
     protected $moduleName = 'MageSuite_CategoryHero';
 
     /**
-     * @var ObjectManager
+     * @var \Magento\TestFramework\ObjectManager
      */
     protected $objectManager;
 
     protected function setUp()
     {
-        $this->objectManager = ObjectManager::getInstance();
+        $this->objectManager = \Magento\TestFramework\ObjectManager::getInstance();
     }
 
     public function testCategoryHeroIsRegisteredAsModule()
     {
-        /** @var ComponentRegistrar $componentRegistrar */
-        $componentRegistrar = new ComponentRegistrar();
+        /** @var \Magento\Framework\Component\ComponentRegistrar $componentRegistrar */
+        $componentRegistrar = new \Magento\Framework\Component\ComponentRegistrar();
         $this->assertArrayHasKey(
             $this->moduleName,
-            $componentRegistrar->getPaths(ComponentRegistrar::MODULE)
+            $componentRegistrar->getPaths(\Magento\Framework\Component\ComponentRegistrar::MODULE)
         );
     }
 
     public function testCategoryHeroIsEnabled()
     {
-        /** @var ModuleList $moduleList */
-        $moduleList = $this->objectManager->get(ModuleList::class);
+        /** @var \Magento\Framework\Module\ModuleList $moduleList */
+        $moduleList = $this->objectManager->get(\Magento\Framework\Module\ModuleList::class);
         $this->assertTrue($moduleList->has($this->moduleName));
     }
 }

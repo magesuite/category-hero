@@ -1,19 +1,12 @@
 <?php
-/**
- * @author    Marek Zabrowarny <marek.zabrowarny@creativestyle.pl>
- * @copyright 2017 creativestyle
- */
-
 
 namespace MageSuite\CategoryHero\Plugin\Block\Catalog\Product;
 
-use Magento\Catalog\Block\Product\ListProduct;
-use Magento\Framework\Registry;
 
 class ListProductPlugin
 {
     /**
-     * @var Registry
+     * @var \Magento\Framework\Registry
      */
     protected $registry;
 
@@ -23,11 +16,10 @@ class ListProductPlugin
     protected $currentCategory = null;
 
     /**
-     * @param Registry $registry
+     * @param \Magento\Framework\Registry $registry
      */
-    public function __construct(
-        Registry $registry
-    ) {
+    public function __construct(\Magento\Framework\Registry $registry)
+    {
         $this->registry = $registry;
     }
 
@@ -43,14 +35,14 @@ class ListProductPlugin
     }
 
     /**
-     * @param ListProduct $subject
+     * @param \Magento\Catalog\Block\Product\ListProduct $subject
      * @param \Closure $proceed
      * @param string $key
      * @param string|int $index
      * @return mixed
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function aroundGetData(ListProduct $subject, \Closure $proceed, $key = '', $index = null)
+    public function aroundGetData(\Magento\Catalog\Block\Product\ListProduct $subject, \Closure $proceed, $key = '', $index = null)
     {
         if ($key === 'is_hero_enabled') {
             if ($currentCategory = $this->getCurrentCategory()) {

@@ -1,9 +1,4 @@
 <?php
-/**
- * @author    Marek Zabrowarny <marek.zabrowarny@creativestyle.pl>
- * @copyright 2017 creativestyle
- */
-
 
 namespace MageSuite\CategoryHero\Test\Integration\Setup;
 
