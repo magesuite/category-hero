@@ -1,8 +1,4 @@
 <?php
-/**
- * @author    Marek Zabrowarny <marek.zabrowarny@creativestyle.pl>
- * @copyright 2017 creativestyle
- */
 
 $objectManager = \Magento\TestFramework\Helper\Bootstrap::getObjectManager();
 

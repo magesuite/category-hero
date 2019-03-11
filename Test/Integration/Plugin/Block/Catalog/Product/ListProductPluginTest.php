@@ -1,18 +1,6 @@
 <?php
-/**
- * @author    Marek Zabrowarny <marek.zabrowarny@creativestyle.pl>
- * @copyright 2017 creativestyle
- */
-
 
 namespace MageSuite\CategoryHero\Test\Integration\Plugin\Block\Catalog\Product;
-
-use MageSuite\CategoryHero\Plugin\Block\Catalog\Product\ListProductPlugin;
-use Magento\Catalog\Block\Product\ListProduct as ProductListBlock;
-use Magento\Catalog\Model\Category;
-use Magento\Framework\Registry;
-use Magento\TestFramework\Interception\PluginList;
-use Magento\TestFramework\ObjectManager;
 
 class ListProductPluginTest extends \PHPUnit\Framework\TestCase
 {
@@ -27,25 +15,25 @@ class ListProductPluginTest extends \PHPUnit\Framework\TestCase
     protected $categoryRegistryKey = 'current_category';
 
     /**
-     * @var ObjectManager
+     * @var \Magento\TestFramework\ObjectManager
      */
     protected $objectManager;
 
     /**
-     * @var Registry
+     * @var \Magento\Framework\Registry
      */
     protected $registry;
 
     /**
-     * @var Category
+     * @var \Magento\Catalog\Model\Category
      */
     protected $categoryModel;
 
     protected function setUp()
     {
-        $this->objectManager = ObjectManager::getInstance();
-        $this->registry = $this->objectManager->get(Registry::class);
-        $this->categoryModel = $this->objectManager->create(Category::class);
+        $this->objectManager = \Magento\TestFramework\ObjectManager::getInstance();
+        $this->registry = $this->objectManager->get(\Magento\Framework\Registry::class);
+        $this->categoryModel = $this->objectManager->create(\Magento\Catalog\Model\Category::class);
         $this->registry->unregister($this->categoryRegistryKey);
     }
 
@@ -54,9 +42,9 @@ class ListProductPluginTest extends \PHPUnit\Framework\TestCase
      */
     protected function getCatalogProductListBlockPlugins()
     {
-        /** @var PluginList $pluginList */
-        $pluginList = $this->objectManager->get(PluginList::class);
-        return $pluginList->get(ProductListBlock::class, []);
+        /** @var \Magento\TestFramework\Interception\PluginList $pluginList */
+        $pluginList = $this->objectManager->get(\Magento\TestFramework\Interception\PluginList::class);
+        return $pluginList->get(\Magento\Catalog\Block\Product\ListProduct::class, []);
     }
 
     /**
@@ -65,18 +53,18 @@ class ListProductPluginTest extends \PHPUnit\Framework\TestCase
     protected function loadAndRegisterCategory($categoryId)
     {
         $category = $this->objectManager
-            ->create(Category::class)
+            ->create(\Magento\Catalog\Model\Category::class)
             ->load($categoryId);
         $this->registry->unregister($this->categoryRegistryKey);
         $this->registry->register($this->categoryRegistryKey, $category);
     }
 
     /**
-     * @return ProductListBlock
+     * @return \Magento\Catalog\Block\Product\ListProduct
      */
     protected function getProductListBlock()
     {
-        return $this->objectManager->create(ProductListBlock::class);
+        return $this->objectManager->create(\Magento\Catalog\Block\Product\ListProduct::class);
     }
 
     /**
@@ -86,7 +74,7 @@ class ListProductPluginTest extends \PHPUnit\Framework\TestCase
     {
         $plugins = $this->getCatalogProductListBlockPlugins();
         $this->assertSame(
-            ListProductPlugin::class,
+            \MageSuite\CategoryHero\Plugin\Block\Catalog\Product\ListProductPlugin::class,
             $plugins[$this->pluginName]['instance']
         );
     }
