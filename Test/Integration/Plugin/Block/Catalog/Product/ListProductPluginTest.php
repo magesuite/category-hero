@@ -29,7 +29,7 @@ class ListProductPluginTest extends \PHPUnit\Framework\TestCase
      */
     protected $categoryModel;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->objectManager = \Magento\TestFramework\ObjectManager::getInstance();
         $this->registry = $this->objectManager->get(\Magento\Framework\Registry::class);
