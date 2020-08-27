@@ -9,7 +9,7 @@ class ListProductPluginTest extends \PHPUnit\Framework\TestCase
      */
     protected $pluginInstance;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $registryStub = $this->getMockBuilder(\Magento\Framework\Registry::class)
             ->getMock();

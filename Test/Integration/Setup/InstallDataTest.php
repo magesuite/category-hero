@@ -41,7 +41,7 @@ class InstallDataTest extends \PHPUnit\Framework\TestCase
      */
     protected $appDirs = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->objectManager = ObjectManager::getInstance();
         $this->shell = $this->objectManager->get(Shell::class);
