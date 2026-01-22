@@ -1,16 +1,33 @@
 <?php
 
-declare(strict_types=1);
-
 namespace MageSuite\CategoryHero\Test\Integration\Plugin\Block\Catalog\Product;
 
 class ListProductPluginTest extends \PHPUnit\Framework\TestCase
 {
-    protected string $pluginName = 'category_hero_product_list_plugin';
-    protected string $categoryRegistryKey = 'current_category';
-    protected ?\Magento\TestFramework\ObjectManager $objectManager;
-    protected ?\Magento\Framework\Registry $registry;
-    protected ?\Magento\Catalog\Model\Category $categoryModel;
+    /**
+     * @var string
+     */
+    protected $pluginName = 'category_hero_product_list_plugin';
+
+    /**
+     * @var string
+     */
+    protected $categoryRegistryKey = 'current_category';
+
+    /**
+     * @var \Magento\TestFramework\ObjectManager
+     */
+    protected $objectManager;
+
+    /**
+     * @var \Magento\Framework\Registry
+     */
+    protected $registry;
+
+    /**
+     * @var \Magento\Catalog\Model\Category
+     */
+    protected $categoryModel;
 
     protected function setUp(): void
     {
@@ -20,15 +37,20 @@ class ListProductPluginTest extends \PHPUnit\Framework\TestCase
         $this->registry->unregister($this->categoryRegistryKey);
     }
 
-    protected function getCatalogProductListBlockPlugins(): array
+    /**
+     * @return mixed
+     */
+    protected function getCatalogProductListBlockPlugins()
     {
         /** @var \Magento\TestFramework\Interception\PluginList $pluginList */
         $pluginList = $this->objectManager->get(\Magento\TestFramework\Interception\PluginList::class);
-
         return $pluginList->get(\Magento\Catalog\Block\Product\ListProduct::class, []);
     }
 
-    protected function loadAndRegisterCategory(int $categoryId): void
+    /**
+     * @param int $categoryId
+     */
+    protected function loadAndRegisterCategory($categoryId)
     {
         $category = $this->objectManager
             ->create(\Magento\Catalog\Model\Category::class)
@@ -37,7 +59,10 @@ class ListProductPluginTest extends \PHPUnit\Framework\TestCase
         $this->registry->register($this->categoryRegistryKey, $category);
     }
 
-    protected function getProductListBlock(): \Magento\Catalog\Block\Product\ListProduct
+    /**
+     * @return \Magento\Catalog\Block\Product\ListProduct
+     */
+    protected function getProductListBlock()
     {
         return $this->objectManager->create(\Magento\Catalog\Block\Product\ListProduct::class);
     }
@@ -45,7 +70,7 @@ class ListProductPluginTest extends \PHPUnit\Framework\TestCase
     /**
      * @magentoAppArea frontend
      */
-    public function testPluginIsConfiguredToInterceptCallsInFrontendArea(): void
+    public function testPluginIsConfiguredToInterceptCallsInFrontendArea()
     {
         $plugins = $this->getCatalogProductListBlockPlugins();
         $this->assertSame(
@@ -57,18 +82,20 @@ class ListProductPluginTest extends \PHPUnit\Framework\TestCase
     /**
      * @magentoAppArea adminhtml
      */
-    public function testPluginIsConfiguredNotToInterceptCallsInAdminhtmlArea(): void
+    public function testPluginIsConfiguredNotToInterceptCallsInAdminhtmlArea()
     {
         $plugins = $this->getCatalogProductListBlockPlugins();
         $this->assertArrayNotHasKey($this->pluginName, $plugins);
     }
 
     /**
+     * @param int $categoryId
+     * @param boolean $heroEnabled
      * @magentoDataFixture loadFixture
      * @magentoAppArea frontend
      * @dataProvider categoryProvider
      */
-    public function testPluginReturnsValueOfEnableHeroProductAttributeWhenCategoryIsRegistered(int $categoryId, bool $heroEnabled): void
+    public function testPluginReturnsValueOfEnableHeroProductAttributeWhenCategoryIsRegistered($categoryId, $heroEnabled)
     {
         $this->loadAndRegisterCategory($categoryId);
         $this->assertSame(
@@ -80,12 +107,15 @@ class ListProductPluginTest extends \PHPUnit\Framework\TestCase
     /**
      * @magentoAppArea frontend
      */
-    public function testPluginReturnsFalseWhenNoCategoryIsRegistered(): void
+    public function testPluginReturnsFalseWhenNoCategoryIsRegistered()
     {
         $this->assertFalse($this->getProductListBlock()->getIsHeroEnabled());
     }
 
-    public static function categoryProvider(): array
+    /**
+     * @return array
+     */
+    public function categoryProvider()
     {
         return [
             [3, false],
@@ -97,12 +127,12 @@ class ListProductPluginTest extends \PHPUnit\Framework\TestCase
         ];
     }
 
-    public static function loadFixture(): void
+    public static function loadFixture()
     {
         include __DIR__ . '/../../../../_files/categories_no_products.php';
     }
 
-    public static function loadFixtureRollback(): void
+    public static function loadFixtureRollback()
     {
         include __DIR__ . '/../../../../_files/categories_no_products_rollback.php';
     }
