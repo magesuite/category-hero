@@ -6,15 +6,11 @@ namespace MageSuite\CategoryHero\Test\Integration\Plugin\Block\Catalog\Product;
 
 class ListProductPluginTest extends \PHPUnit\Framework\TestCase
 {
-    protected string $pluginName = 'category_hero_product_list_plugin';
-
-    protected string $categoryRegistryKey = 'current_category';
-
-    protected \Magento\TestFramework\ObjectManager $objectManager;
-
-    protected \Magento\Framework\Registry $registry;
-
-    protected \Magento\Catalog\Model\Category $categoryModel;
+    protected ?string $pluginName = 'category_hero_product_list_plugin';
+    protected ?string $categoryRegistryKey = 'current_category';
+    protected ?\Magento\TestFramework\ObjectManager $objectManager;
+    protected ?\Magento\Framework\Registry $registry;
+    protected ?\Magento\Catalog\Model\Category $categoryModel;
 
     protected function setUp(): void
     {
