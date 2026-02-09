@@ -1,19 +1,13 @@
 <?php
 
-namespace MageSuite\CategoryHero\Test\Integration;
+declare(strict_types=1);
 
+namespace MageSuite\CategoryHero\Test\Integration;
 
 class ExtensionSetupTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var string
-     */
-    protected $moduleName = 'MageSuite_CategoryHero';
-
-    /**
-     * @var \Magento\TestFramework\ObjectManager
-     */
-    protected $objectManager;
+    protected ?string $moduleName = 'MageSuite_CategoryHero';
+    protected ?\Magento\TestFramework\ObjectManager $objectManager;
 
     protected function setUp(): void
     {
