@@ -65,8 +65,8 @@ class ListProductPluginTest extends \PHPUnit\Framework\TestCase
     /**
      * @magentoDataFixture MageSuite_CategoryHero::Test/Integration/_files/categories_no_products.php
      * @magentoAppArea frontend
-     * @dataProvider categoryProvider
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('categoryProvider')]
     public function testPluginReturnsValueOfEnableHeroProductAttributeWhenCategoryIsRegistered(int $categoryId, bool $heroEnabled): void
     {
         $this->loadAndRegisterCategory($categoryId);
